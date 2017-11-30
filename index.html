@@ -1,0 +1,72 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+ <script src="https://code.jquery.com/jquery-1.11.3.js"></script>
+ <link rel="stylesheet" type="text/css" href="estilos.css">
+ <link href="https://fonts.googleapis.com/css?family=Mukta+Vaani" rel="stylesheet">
+ <script>
+
+function verificarUsuario() {
+	var usuario = {
+		"nickname": jQuery("#login_nickname").val(),
+		"password": jQuery("#login_password").val()
+	};
+
+	jQuery.ajax({method: "POST", url: "valida-usuario.json.php", data: JSON.stringify(usuario), dataType: 'text'}).done(function( responseText ) {
+	if(responseText==true)
+	{
+		alert("Bienvenido");
+		location.href = "chat.html";
+	}
+	else
+	{
+		alert("ususario o password incorrecto vuelva a ingresar")
+	}
+	
+	});
+}
+
+function registrarNuevoUsuario() {
+  var usuario = {
+	"nickname": jQuery("#nickname").val(),
+	"password": jQuery("#password").val(),
+	"nombres":  jQuery("#nombres").val(),
+	"apellidos":  jQuery("#apellidos").val(),
+	"fecha_registro":  jQuery("#fecha_registro").val()
+  };
+  jQuery.ajax({method: "POST", url: "guardar-usuario.json.php", data: JSON.stringify(usuario), dataType: 'text'}).done(function( responseText ) {
+	alert(responseText);
+  });
+}
+</script>
+</head>
+
+<body style="background-color:#bdc3c7">
+<div id="main-wrapper">
+<div class="inner_container">
+ <h3>Iniciar Sesion</h3>
+ <table id="nuevo-usuario" border="1">
+  <tr><td>Nickname</td><td><input id="login_nickname" /></td></tr>
+  <tr><td>Password</td><td><input type="password" id="login_password" /></td></tr>
+ </table>
+ <button onclick="verificarUsuario()">Iniciar Sesion</button>
+<center><h2>Registro de nuevos usuarios</h2></center>
+
+		
+
+ <table id="nuevo-usuario" border="1">
+  <tr><td>Nickname</td><td><input id="nickname" /></td></tr>
+  <tr><td>Password</td><td><input type="password" id="password" /></td></tr>
+  <tr><td>Nombres</td><td><input id="nombres" /></td></tr>
+  <tr><td>Apellidos</td><td><input id="apellidos" /></td></tr>
+  <tr><td>Fecha Registro</td><td><input id="fecha_registro" /></td></tr>
+ </table>
+ <button onclick="registrarNuevoUsuario()">Registrar</button>
+ 
+ </div>
+  </div>
+ 
+</body>
+
+</html>
